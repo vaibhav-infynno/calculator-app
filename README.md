@@ -127,17 +127,3 @@ The test suite covers arithmetic correctness, edge cases, validation rules, stat
 * **`flutter_lints`**: Strict static analysis rules.
 * **`flutter_test`**: Unit and widget testing frame.
 
----
-
-## Future Improvements
-
-* **Calculation History**: Add a local repository (using `shared_preferences` or `sqlite`) to persist past calculations.
-* **Advanced Mathematical Constants**: Introduce constants like $e$ or $\pi$ using a dedicated constant model in the domain layer.
-* **Keypad Customization**: Allow users to swap between standard keypad and a scientific keyboard layout.
-
----
-
-## Known Limitations
-
-* **Memory Precision Limits**: Numbers exceeding standard IEEE 754 64-bit double limits (around $1.79 \times 10^{308}$) will evaluate to `Infinity`.
-* **No Parentheses**: Arithmetic expressions must be sequential (e.g., `3 + 5 × 2`). Precedence is strictly maintained via MDAS rules, but parentheses groupings are not supported by design.
