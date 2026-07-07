@@ -1,4 +1,4 @@
-# Precision Calculator App
+# Calculator App
 
 A premium, production-grade Calculator application built with Flutter, focusing heavily on **Clean Architecture**, **SOLID principles**, strict **lints**, and **comprehensive testing**.
 
