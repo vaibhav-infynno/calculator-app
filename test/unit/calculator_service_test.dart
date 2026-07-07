@@ -111,4 +111,70 @@ void main() {
       expect(calculator.calculate('1.23÷100000'), '1.23e-5');
     });
   });
+
+  group('Mandatory Unit Test Cases', () {
+    test('TC001: 2 + 3 = 5', () {
+      expect(calculator.calculate('2+3'), '5');
+    });
+    test('TC002: 10 - 7 = 3', () {
+      expect(calculator.calculate('10-7'), '3');
+    });
+    test('TC003: 5 × 8 = 40', () {
+      expect(calculator.calculate('5×8'), '40');
+    });
+    test('TC004: 20 ÷ 4 = 5', () {
+      expect(calculator.calculate('20÷4'), '5');
+    });
+    test('TC005: 5 ÷ 2 = 2.5', () {
+      expect(calculator.calculate('5÷2'), '2.5');
+    });
+    test('TC006: 0 + 0 = 0', () {
+      expect(calculator.calculate('0+0'), '0');
+    });
+    test('TC007: -5 + 10 = 5', () {
+      expect(calculator.calculate('-5+10'), '5');
+    });
+    test('TC008: -5 × -2 = 10', () {
+      expect(calculator.calculate('-5×-2'), '10');
+    });
+    test('TC009: 2.5 + 3.5 = 6', () {
+      expect(calculator.calculate('2.5+3.5'), '6');
+    });
+    test('TC010: 5.5 × 2 = 11', () {
+      expect(calculator.calculate('5.5×2'), '11');
+    });
+    test('TC011: 10 ÷ 0 = Error', () {
+      expect(
+        () => calculator.calculate('10÷0'),
+        throwsA(isA<DivisionByZeroFailure>()),
+      );
+    });
+    test('TC012: Empty input = Error', () {
+      expect(
+        () => calculator.calculate(''),
+        throwsA(isA<InvalidExpressionFailure>()),
+      );
+    });
+    test('TC013: Invalid operator = Error', () {
+      expect(
+        () => calculator.calculate('5?3'),
+        throwsA(isA<InvalidExpressionFailure>()),
+      );
+    });
+    test('TC014: 5++3 = Error', () {
+      expect(
+        () => calculator.calculate('5++3'),
+        throwsA(isA<InvalidExpressionFailure>()),
+      );
+    });
+    test('TC015: Multiple decimal points = Error', () {
+      expect(
+        () => calculator.calculate('5.5.5'),
+        throwsA(isA<InvalidExpressionFailure>()),
+      );
+    });
+    test('TC016: Large numbers = Correct Result', () {
+      expect(calculator.calculate('999999999×999999999'), '1e+18');
+    });
+  });
 }

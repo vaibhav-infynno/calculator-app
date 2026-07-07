@@ -256,4 +256,121 @@ void main() {
       expect(find.byType(Keypad), findsOneWidget);
     });
   });
+
+  group('Mandatory Widget Test Cases', () {
+    testWidgets('WT001: App opens, display shows 0', (
+      WidgetTester tester,
+    ) async {
+      await pumpApp(tester);
+      expect(findInDisplay('0'), findsOneWidget);
+    });
+
+    testWidgets('WT002: Press 5, display updates', (WidgetTester tester) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      expect(findInDisplay('5'), findsOneWidget);
+    });
+
+    testWidgets('WT003: Press C/AC, display resets', (
+      WidgetTester tester,
+    ) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      await tapKey(tester, 'AC');
+      expect(findInDisplay('0'), findsOneWidget);
+    });
+
+    testWidgets('WT004: Backspace, last digit removed', (
+      WidgetTester tester,
+    ) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      await tapKey(tester, '3');
+      await tapKey(tester, '⌫');
+      expect(findInDisplay('5'), findsOneWidget);
+    });
+
+    testWidgets('WT005: 2 + 3 = 5', (WidgetTester tester) async {
+      await pumpApp(tester);
+      await tapKey(tester, '2');
+      await tapKey(tester, '+');
+      await tapKey(tester, '3');
+      await tapKey(tester, '=');
+      expect(findInDisplay('5'), findsOneWidget);
+    });
+
+    testWidgets('WT006: 9 - 4 = 5', (WidgetTester tester) async {
+      await pumpApp(tester);
+      await tapKey(tester, '9');
+      await tapKey(tester, '-');
+      await tapKey(tester, '4');
+      await tapKey(tester, '=');
+      expect(findInDisplay('5'), findsOneWidget);
+    });
+
+    testWidgets('WT007: 5 × 5 = 25', (WidgetTester tester) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      await tapKey(tester, '×');
+      await tapKey(tester, '5');
+      await tapKey(tester, '=');
+      expect(findInDisplay('25'), findsOneWidget);
+    });
+
+    testWidgets('WT008: 8 ÷ 2 = 4', (WidgetTester tester) async {
+      await pumpApp(tester);
+      await tapKey(tester, '8');
+      await tapKey(tester, '÷');
+      await tapKey(tester, '2');
+      await tapKey(tester, '=');
+      expect(findInDisplay('4'), findsOneWidget);
+    });
+
+    testWidgets('WT009: 5 ÷ 0, Error shown', (WidgetTester tester) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      await tapKey(tester, '÷');
+      await tapKey(tester, '0');
+      await tapKey(tester, '=');
+      expect(findInDisplay('Error: Division by zero'), findsOneWidget);
+    });
+
+    testWidgets('WT010: Decimal input, correct display', (
+      WidgetTester tester,
+    ) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      await tapKey(tester, '.');
+      await tapKey(tester, '2');
+      expect(findInDisplay('5.2'), findsOneWidget);
+    });
+
+    testWidgets('WT011: Multiple operators, validation works', (
+      WidgetTester tester,
+    ) async {
+      await pumpApp(tester);
+      await tapKey(tester, '5');
+      await tapKey(tester, '+');
+      await tapKey(tester, '×');
+      await tapKey(tester, '3');
+      expect(findInDisplay('5×3'), findsOneWidget);
+    });
+
+    testWidgets('WT012: Long expression, correct result', (
+      WidgetTester tester,
+    ) async {
+      await pumpApp(tester);
+      await tapKey(tester, '3');
+      await tapKey(tester, '+');
+      await tapKey(tester, '5');
+      await tapKey(tester, '×');
+      await tapKey(tester, '2');
+      await tapKey(tester, '-');
+      await tapKey(tester, '8');
+      await tapKey(tester, '÷');
+      await tapKey(tester, '4');
+      await tapKey(tester, '=');
+      expect(findInDisplay('11'), findsOneWidget);
+    });
+  });
 }
