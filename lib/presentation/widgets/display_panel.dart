@@ -20,16 +20,31 @@ class DisplayPanel extends StatelessWidget {
     final Color resultColor = isDark
         ? AppColors.darkSecondary
         : AppColors.lightSecondary;
-    final Color containerColor = isDark
-        ? AppColors.darkSurface
-        : AppColors.lightSurfaceVariant.withValues(alpha: 0.5);
 
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppDimensions.paddingLarge),
       decoration: BoxDecoration(
-        color: containerColor,
         borderRadius: BorderRadius.circular(32.0),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? [AppColors.darkSurface, AppColors.darkBg]
+              : [
+                  Colors.white,
+                  AppColors.lightSurfaceVariant.withValues(alpha: 0.3),
+                ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.3)
+                : Colors.black.withValues(alpha: 0.05),
+            blurRadius: 24.0,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
