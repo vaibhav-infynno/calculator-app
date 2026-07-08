@@ -15,9 +15,7 @@ class DivisionByZeroFailure extends Failure {
 
 /// Failure representing syntactically malformed expressions.
 class InvalidExpressionFailure extends Failure {
-  const InvalidExpressionFailure([
-    super.message = 'Format error',
-  ]);
+  const InvalidExpressionFailure([super.message = 'Format error']);
 }
 
 /// Failure representing tokenization or parsing errors.

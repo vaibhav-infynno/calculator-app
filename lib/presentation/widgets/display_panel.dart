@@ -56,10 +56,8 @@ class DisplayPanel extends StatelessWidget {
           const SizedBox(height: AppDimensions.paddingMedium),
           // Select strictly the result and error state to avoid unnecessary rebuilds of other parts
           Selector<CalculatorProvider, ({String result, bool isError})>(
-            selector: (context, provider) => (
-              result: provider.result,
-              isError: provider.isError,
-            ),
+            selector: (context, provider) =>
+                (result: provider.result, isError: provider.isError),
             builder: (context, state, child) {
               final result = state.result;
               final isError = state.isError;
@@ -69,9 +67,7 @@ class DisplayPanel extends StatelessWidget {
                       color: AppColors.clearButtonColor,
                       fontWeight: FontWeight.w500,
                     )
-                  : theme.textTheme.displayLarge?.copyWith(
-                      color: resultColor,
-                    );
+                  : theme.textTheme.displayLarge?.copyWith(color: resultColor);
 
               return AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
@@ -93,11 +89,7 @@ class DisplayPanel extends StatelessWidget {
                         key: ValueKey(result),
                         scrollDirection: Axis.horizontal,
                         reverse: true,
-                        child: Text(
-                          result,
-                          style: textStyle,
-                          maxLines: 1,
-                        ),
+                        child: Text(result, style: textStyle, maxLines: 1),
                       ),
               );
             },
