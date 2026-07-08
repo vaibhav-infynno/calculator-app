@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_dimensions.dart';
 import '../providers/calculator_provider.dart';
@@ -26,16 +27,7 @@ class DisplayPanel extends StatelessWidget {
       padding: const EdgeInsets.all(AppDimensions.paddingLarge),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32.0),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: isDark
-              ? [AppColors.darkSurface, AppColors.darkBg]
-              : [
-                  Colors.white,
-                  AppColors.lightSurfaceVariant.withValues(alpha: 0.3),
-                ],
-        ),
+        color: isDark ? AppColors.darkSurface : Colors.white,
         boxShadow: [
           BoxShadow(
             color: isDark
