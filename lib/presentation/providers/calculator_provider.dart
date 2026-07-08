@@ -15,6 +15,7 @@ class CalculatorProvider extends ChangeNotifier {
   String _expression = '';
   String _result = '';
   bool _isEvaluated = false;
+  bool _isError = false;
 
   String? _lastOperator;
   String? _lastOperand;
@@ -29,6 +30,7 @@ class CalculatorProvider extends ChangeNotifier {
 
   String get expression => _expression;
   String get result => _result;
+  bool get isError => _isError;
 
   /// Appends an input string (digit, decimal, or operator) to the expression.
   void append(String value) {
@@ -48,6 +50,7 @@ class CalculatorProvider extends ChangeNotifier {
       _expression = value == '.' ? '0.' : value;
       _result = '';
       _isEvaluated = false;
+      _isError = false;
       _lastOperator = null;
       _lastOperand = null;
       notifyListeners();
@@ -70,6 +73,7 @@ class CalculatorProvider extends ChangeNotifier {
       // Clear result if we backspace after evaluation
       _result = '';
       _isEvaluated = false;
+      _isError = false;
       notifyListeners();
       return;
     }
@@ -85,6 +89,7 @@ class CalculatorProvider extends ChangeNotifier {
     _expression = '';
     _result = '';
     _isEvaluated = false;
+    _isError = false;
     _lastOperator = null;
     _lastOperand = null;
     notifyListeners();
@@ -103,6 +108,7 @@ class CalculatorProvider extends ChangeNotifier {
         final String evalResult = _calculatorService.calculate(newExpr);
         _expression = newExpr;
         _result = evalResult;
+        _isError = false;
       } else {
         // Normal Evaluation
         _validatorService.validateExpression(_expression);
@@ -113,15 +119,18 @@ class CalculatorProvider extends ChangeNotifier {
         final String evalResult = _calculatorService.calculate(_expression);
         _result = evalResult;
         _isEvaluated = true;
+        _isError = false;
       }
     } on Failure catch (e) {
       _result = e.message;
       _isEvaluated = true;
+      _isError = true;
       _lastOperator = null;
       _lastOperand = null;
     } catch (e) {
-      _result = 'Error';
+      _result = 'Format error';
       _isEvaluated = true;
+      _isError = true;
       _lastOperator = null;
       _lastOperand = null;
     }
@@ -130,7 +139,7 @@ class CalculatorProvider extends ChangeNotifier {
 
   void _appendOperator(String op) {
     if (_isEvaluated) {
-      if (_result.startsWith('Error')) {
+      if (_isError) {
         return; // Block chaining on errors
       }
       // Chain operation using the result
@@ -186,7 +195,7 @@ class CalculatorProvider extends ChangeNotifier {
 
   void _toggleSign() {
     if (_isEvaluated) {
-      if (_result.startsWith('Error')) return;
+      if (_isError) return;
       _expression = _validatorService.toggleSign(_result);
       _result = '';
       _isEvaluated = false;

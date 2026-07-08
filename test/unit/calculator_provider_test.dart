@@ -137,7 +137,7 @@ void main() {
       provider.append('÷');
       provider.append('0');
       provider.evaluate();
-      expect(provider.result, 'Error: Division by zero');
+      expect(provider.result, 'Cannot divide by zero');
     });
 
     test('Blocks leading operators (except minus) from being appended', () {

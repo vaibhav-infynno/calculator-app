@@ -10,19 +10,19 @@ abstract class Failure implements Exception {
 
 /// Failure representing division by zero.
 class DivisionByZeroFailure extends Failure {
-  const DivisionByZeroFailure() : super('Error: Division by zero');
+  const DivisionByZeroFailure() : super('Cannot divide by zero');
 }
 
 /// Failure representing syntactically malformed expressions.
 class InvalidExpressionFailure extends Failure {
   const InvalidExpressionFailure([
-    super.message = 'Error: Malformed expression',
+    super.message = 'Format error',
   ]);
 }
 
 /// Failure representing tokenization or parsing errors.
 class ParserFailure extends Failure {
-  const ParserFailure([super.message = 'Error: Parsing failed']);
+  const ParserFailure([super.message = 'Format error']);
 }
 
 /// Failure representing validation constraints (e.g. typing multiple decimals).

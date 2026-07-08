@@ -72,22 +72,20 @@ class ValidatorService {
   /// Performs syntax validation before final calculation.
   void validateExpression(String expression) {
     if (expression.isEmpty) {
-      throw const InvalidExpressionFailure('Error: Empty expression');
+      throw const InvalidExpressionFailure('Format error');
     }
 
     final String cleaned = expression.replaceAll(' ', '');
     final String lastChar = cleaned.substring(cleaned.length - 1);
 
     if (_isOperator(lastChar)) {
-      throw const InvalidExpressionFailure(
-        'Error: Expression cannot end with an operator',
-      );
+      throw const InvalidExpressionFailure('Format error');
     }
 
     // Verify all decimal points are associated with valid numbers (e.g., "." is not a valid number)
     final RegExp invalidDecimal = RegExp(r'(^|[\+\-\×\÷])\.(?:[\+\-\×\÷]|$)');
     if (invalidDecimal.hasMatch(cleaned)) {
-      throw const InvalidExpressionFailure('Error: Invalid decimal placement');
+      throw const InvalidExpressionFailure('Format error');
     }
   }
 

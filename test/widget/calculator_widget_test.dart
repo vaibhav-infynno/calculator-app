@@ -162,7 +162,7 @@ void main() {
       await tapKey(tester, '0');
       await tapKey(tester, '=');
 
-      expect(findInDisplay('Error: Division by zero'), findsOneWidget);
+      expect(findInDisplay('Cannot divide by zero'), findsOneWidget);
     });
 
     testWidgets('Repeated equals repeats last operation', (
@@ -332,7 +332,7 @@ void main() {
       await tapKey(tester, '÷');
       await tapKey(tester, '0');
       await tapKey(tester, '=');
-      expect(findInDisplay('Error: Division by zero'), findsOneWidget);
+      expect(findInDisplay('Cannot divide by zero'), findsOneWidget);
     });
 
     testWidgets('WT010: Decimal input, correct display', (
